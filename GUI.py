@@ -41,7 +41,7 @@ def startGui(specialChars):
     root = tkt.Tk()
     root.title(title)
     root.config(bg=color)
-    root.geometry("900x800")
+    root.geometry("900x900")
     mainWindow = tkt.Frame(root)
     mainWindow.config(bg=color)
     mainWindow.pack()
@@ -54,8 +54,8 @@ def startGui(specialChars):
     labelOption1 = tkt.Label(optionFrame, text="Caratteri Considerati Speciali")
     labelOption1.grid(row=0, column=0,padx=15,pady=15)
     global labelOption2
-    labelOption2 = tkt.Label(optionFrame, text=specialChars,font=("arial",12))
-    labelOption2.grid(row=0, column=2,padx=15,pady=15)
+    labelOption2 = tkt.Label(optionFrame, text=specialChars,font=("arial",19))
+    labelOption2.grid(row=0, column=1,padx=15,pady=15)
 
     global entryOption1
     entryOption1 = tkt.Entry(optionFrame,font=("arial",12))
@@ -68,18 +68,26 @@ def startGui(specialChars):
     textsFrame.config(bg=color)
     textsFrame.pack(pady=25)
     label1 = tkt.Label(textsFrame, text="Inserisci Qui Il testo Da Modificare",font=("arial",10))
-    label1.grid(row=0, column=0,padx=15,pady=15)
+    label1.grid(row=0, column=1,padx=15,pady=15)
     label1 = tkt.Label(textsFrame, text="Testo modificato",font=("arial",10))
-    label1.grid(row=0, column=2,padx=15,pady=15)
+    label1.grid(row=0, column=3,padx=15,pady=15)
 
     global textField1
-    textField1 = tkt.Text(textsFrame,font=("arial",10), height=50, width=50)
-    textField1.grid(row=1, column=0,padx=15,pady=15)
+    textField1 = tkt.Text(textsFrame,font=("arial",10), height=30, width=50)
+    scrollbar1 = tkt.Scrollbar(textsFrame,orient="vertical", command=textField1.yview)
+    textField1.config(yscrollcommand=scrollbar1.set)
+    scrollbar1.grid(row=1, column=0, sticky="ns")
+    textField1.grid(row=1, column=1,padx=(15,0),pady=15)
+
     entryButton2 = tkt.Button(textsFrame,text="-->", command=modifyText,font=("arial",10))
-    entryButton2.grid(row=1,column=1,padx=15)
+    entryButton2.grid(row=1,column=2,padx=15)
+
     global textField2
-    textField2 = tkt.Text(textsFrame,font=("arial",10), height=50, width=50)
-    textField2.grid(row=1, column=2,padx=15,pady=15)
+    textField2 = tkt.Text(textsFrame,font=("arial",10), height=30, width=50)
+    scrollbar2 = tkt.Scrollbar(textsFrame,orient="vertical", command=textField2.yview)
+    textField2.config(yscrollcommand=scrollbar2.set)
+    textField2.grid(row=1, column=3,padx=(0,15),pady=15)
+    scrollbar2.grid(row=1, column=4, sticky="ns")
     root.protocol("WM_DELETE_WINDOW", onClosing)
     root.mainloop()
 
