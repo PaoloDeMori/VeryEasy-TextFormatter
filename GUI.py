@@ -112,7 +112,7 @@ def checkBoxCreator():
     checkBox1.pack(anchor="w")
     checkBox2=tkt.Checkbutton(checkBoxFrame,text="Attivare l'eliminazione degli spazi iniziali o finali",variable=isFLSpaceDeleterOn,onvalue=True,offvalue=False)
     checkBox2.pack(anchor="w")
-    checkBox3=tkt.Checkbutton(checkBoxFrame,text="Attivare l'eliminazione dei caratteri speciali?",variable=isSpecialDeleterOn,onvalue=True,offvalue=False)
+    checkBox3=tkt.Checkbutton(checkBoxFrame,text="Attivare l'eliminazione dei caratteri invisibili?",variable=isSpecialDeleterOn,onvalue=True,offvalue=False)
     checkBox3.pack(anchor="w")
     checkBoxFrame.grid(row=0,column=0,sticky="ns",padx=standardPadding,pady=standardPadding)
 
