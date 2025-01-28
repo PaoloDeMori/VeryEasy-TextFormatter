@@ -4,6 +4,9 @@ import textFixer as tF
 import sys
 
 color = "snow3"
+global isSpecialDeleterOn
+global isFLSpaceDeleterOn
+global isSpaceDeleterOn
 
 def modifyChars():
     global chars1
@@ -21,7 +24,16 @@ def modifyChars():
 def modifyText():
    stringa = textField1.get(1.0,tkt.END)
    textField2.delete(1.0,tkt.END)
-   textField2.insert(1.0,tF.textFixer(stringa,chars1))
+   textField2.insert(1.0,tF.textFixer(stringa,chars1,isSpaceDeleterOn.get(),isFLSpaceDeleterOn.get(),isSpaceDeleterOn.get()))
+
+def copyText():
+    global root
+    global textField2
+    root.clipboard_clear()
+    st=textField2.get(1.0, tkt.END)
+    if st[-1]=='\n':
+        st=st[:-1]
+    root.clipboard_append(st)
 
 def onClosing(event=None):
     global root
@@ -32,19 +44,18 @@ def onClosing(event=None):
     sys.exit(0)
 
 
-
-def startGui(specialChars):
-    global chars1
-    chars1=specialChars
-    title = "TextFormatter"
+def mainWindowBuilder(specialChars):
     global root
-    root = tkt.Tk()
-    root.title(title)
-    root.config(bg=color)
-    root.geometry("900x900")
     mainWindow = tkt.Frame(root)
+    root.resizable(False,False)
     mainWindow.config(bg=color)
-    mainWindow.pack()
+    global isSpaceDeleterOn
+    isSpaceDeleterOn=tkt.BooleanVar()
+    global isFLSpaceDeleterOn
+    isFLSpaceDeleterOn=tkt.BooleanVar()
+    global isSpecialDeleterOn
+    isSpecialDeleterOn=tkt.BooleanVar()
+    mainWindow.grid(row=0,column=1,sticky="ns",padx=15,pady=15)
     titleLabel=tkt.Label(mainWindow, text=title, font=("Arial",20))
     titleLabel.pack(pady=25)
     optionFrame=tkt.Frame(mainWindow)
@@ -88,6 +99,36 @@ def startGui(specialChars):
     textField2.config(yscrollcommand=scrollbar2.set)
     textField2.grid(row=1, column=3,padx=(0,15),pady=15)
     scrollbar2.grid(row=1, column=4, sticky="ns")
+
+    entryButton3 = tkt.Button(textsFrame,text="Copia", command=copyText,font=("arial",10))
+    entryButton3.grid(row=1,column=5,padx=15)
+
+def checkBoxCreator():
+    checkBoxFrame=tkt.Frame(root)
+    checkBox1=tkt.Checkbutton(checkBoxFrame,text="Attivare l'eliminazione dei doppi spazi?",variable=isSpaceDeleterOn,onvalue=True,offvalue=False)
+    checkBox1.pack(anchor="w")
+    checkBox2=tkt.Checkbutton(checkBoxFrame,text="Attivare l'eliminazione degli spazi iniziali o finali",variable=isFLSpaceDeleterOn,onvalue=True,offvalue=False)
+    checkBox2.pack(anchor="w")
+    checkBox3=tkt.Checkbutton(checkBoxFrame,text="Attivare l'eliminazione dei caratteri speciali?",variable=isSpecialDeleterOn,onvalue=True,offvalue=False)
+    checkBox3.pack(anchor="w")
+    checkBoxFrame.grid(row=0,column=0,sticky="ns",padx=15,pady=15)
+
+
+
+
+def startGui(specialChars):
+    global chars1
+    chars1=specialChars
+    global title
+    title = "TextFormatter"
+    global root
+    root = tkt.Tk()
+    root.title(title)
+    root.config(bg=color)
+    root.geometry("1400x900")
+    mainWindowBuilder(specialChars)
+    checkBoxCreator()
+    
     root.protocol("WM_DELETE_WINDOW", onClosing)
     root.mainloop()
 
