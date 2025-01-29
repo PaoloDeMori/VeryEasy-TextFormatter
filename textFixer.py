@@ -2,7 +2,8 @@ specialCharacters=['\u2000','\u2001','\u2002','\u2003','\u202F','\u2004','\u2005
 
 def textFixer(stringa, specialChars,isSpaceDeleterOn,isFLSpaceDeleterOn,isSpecialDeleterOn):
     nuovaStringa=""
-
+    if(len(stringa)==0):
+        return stringa
     if stringa[-1]=="\n":
         stringa = stringa[:-1]
 
